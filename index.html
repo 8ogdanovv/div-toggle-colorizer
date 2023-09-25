@@ -73,7 +73,7 @@
             for (let i = 0; i < divs.length; i++) {
                 const hue = i * hueStep;
                 const bgColor = `hsl(${hue}, 100%, 50%)`;
-                const shadowColor = `hsl(${hue + 180}, 100%, 50%)`;
+                const shadowColor = `hsl(${(hue + 180) % 360}, 100%, 50%)`;
                 divs[i].style.backgroundColor = bgColor;
                 divs[i].style.color = `${shadowColor}`;
             }
