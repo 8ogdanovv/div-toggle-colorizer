@@ -41,11 +41,11 @@
                 // Get the target index from the div's content
                 const initialIndex = parseInt(clone.textContent.split('#')[1]);
 
-                // Removing copying source element
+                // Removing copying source element before appending
                 div.parentNode.removeChild(div);
 
                 // Find the div with the target index and insert the clone before it
-                const targetDiv = document.querySelector(`div:nth-of-type(${initialIndex + 2})`);
+                const targetDiv = document.querySelector(`div:nth-of-type(${initialIndex + 1})`);
                 targetDiv.parentNode.insertBefore(clone, targetDiv);
 
                 // Attach the click event listener to the cloned element
