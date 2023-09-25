@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Div Toggle Colorizer</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@1,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: 'Victor Mono', monospace;
+        }
+        div {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 50px;
+            cursor: pointer;
+            text-shadow: 0 0 5px black;
+            letter-spacing: 0.25ch;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Function to toggle the position of a div
+        function togglePosition(event) {
+            const div = event.target;
+            const clicked = parseInt(div.getAttribute('data-clicked'));
+
+            if (clicked % 2 !== 0) {
+                // Even click, move its copy to initial index
+                const clone = div.cloneNode(true); // Create a deep copy
+                clone.setAttribute('data-clicked', `${clicked + 1}`);
+                // Get the target index from the div's content
+                const initialIndex = parseInt(clone.textContent.split('#')[1]);
+
+                // Removing copying source element
+                div.parentNode.removeChild(div);
+
+                // Find the div with the target index and insert the clone before it
+                const targetDiv = document.querySelector(`div:nth-of-type(${initialIndex + 2})`);
+                targetDiv.parentNode.insertBefore(clone, targetDiv);
+
+                // Attach the click event listener to the cloned element
+                clone.onclick = togglePosition;
+            } else {
+                // Odd click, create copy and move to top
+                const firstDiv = document.body.firstChild;
+                const clone = div.cloneNode(true); // Create a deep copy
+                clone.setAttribute('data-clicked', `${clicked + 1}`);
+                document.body.insertBefore(clone, firstDiv);
+
+                // Attach the click event listener to the cloned element
+                clone.onclick = togglePosition;
+
+                // Removing copying source element
+                div.parentNode.removeChild(div);
+            }
+        }
+
+        // Function to colorize the divs with good contrast
+        function colorizeDivs() {
+            const divs = document.getElementsByTagName('div');
+            const hueStep = 360 / divs.length;
+
+            for (let i = 0; i < divs.length; i++) {
+                const hue = i * hueStep;
+                const bgColor = `hsl(${hue}, 100%, 50%)`;
+                const shadowColor = `hsl(${hue + 180}, 100%, 50%)`;
+                divs[i].style.backgroundColor = bgColor;
+                divs[i].style.color = `${shadowColor}`;
+            }
+        }
+
+        // Prepend the number with leading zeros
+        function pad(num, size) {
+            num = num.toString();
+            while (num.length < size) num = "0" + num;
+            return num;
+        }
+
+        // Generate and attach 100 divs to the body
+        for (let i = 1; i <= 100; i++) {
+            const div = document.createElement('div');
+            div.textContent = `div#${pad(i, 3)}`;
+            div.setAttribute('data-clicked', '0'); // Initially set to 0
+            document.body.appendChild(div);
+
+            // Attach the click event listener to each div
+            div.onclick = togglePosition;
+        }
+
+        // Colorize the divs once they are generated
+        colorizeDivs();
+    </script>
+</body>
+</html>
