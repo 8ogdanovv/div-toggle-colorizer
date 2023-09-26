@@ -72,17 +72,15 @@
         }
 
         // Prepend the number with leading zeros
-        function pad(num, size) {
-            num = num.toString();
-            while (num.length < size) num = "0" + num;
-            return num;
+        function leadingZeroz(num, size) {
+            return '0'.repeat(size - String(num).length) + String(num);
         }
 
         // Generate and attach 100 divs to the body
         for (let i = 1; i <= 100; i++) {
             const div = document.createElement('div');
             div.classList.add('generated');
-            div.textContent = `div#${pad(i, 3)}`;
+            div.textContent = `div#${leadingZeroz(i, 3)}`;
             div.setAttribute('data-clicked', '0'); // Initially set to 0
             document.body.appendChild(div);
 
