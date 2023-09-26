@@ -29,9 +29,6 @@
 </head>
 <body>
     <script>
-        // Initialize an array to keep track of div positions
-        const divPositions = [];
-
         // Function to toggle the position of a div
         function togglePosition(event) {
             const div = event.target;
@@ -42,26 +39,23 @@
             if (clicked % 2 !== 0) {
                 // Even click, move its copy to initial index
                 const initialIndex = parseInt(clone.textContent.split('#')[1]);
-                // Find target element by index as divs are stored in arr from 0
-                const targetDiv = divPositions[initialIndex];
-
+                // Take all divs with class 'generated'
+                const divs = document.querySelectorAll('div.generated');
+                // Targeting on next element as content number points next by index
+                // Array 'divs': [0: div#001, 1: div#002, ..., 98: div#099, 99: div#100]
+                const targetDiv = divs[initialIndex];
                 // Inserting cloned element to initial position
                 targetDiv.parentNode.insertBefore(clone, targetDiv);
-
             } else {
                 // Odd click, create copy and move to top
                 const firstDiv = document.body.firstChild;
                 // Inserting clone before first dit - to the top
                 document.body.insertBefore(clone, firstDiv);
             }
-
             // Attach the click event listener to the cloned element
             clone.onclick = togglePosition;
-
             // Removing copying source element
             div.parentNode.removeChild(div);
-
-            console.log(divPositions);
         }
         // Function to colorize the divs with good contrast
         function colorizeDivs() {
@@ -74,9 +68,6 @@
                 const shadowColor = `hsl(${(hue + 180) % 360}, 100%, 50%)`;
                 divs[i].style.backgroundColor = bgColor;
                 divs[i].style.color = `${shadowColor}`;
-
-                // Populate the divPositions array initially
-                divPositions.push(divs[i]);
             }
         }
 
