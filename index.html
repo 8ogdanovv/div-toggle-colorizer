@@ -36,42 +36,33 @@
         function togglePosition(event) {
             const div = event.target;
             const clicked = parseInt(div.getAttribute('data-clicked'));
+            const clone = div.cloneNode(true); // Create a deep copy
+            clone.setAttribute('data-clicked', `${clicked + 1}`);
 
             if (clicked % 2 !== 0) {
                 // Even click, move its copy to initial index
-                const clone = div.cloneNode(true); // Create a deep copy
-                clone.setAttribute('data-clicked', `${clicked + 1}`);
-
-                // Removing copying source element before appending
-                div.parentNode.removeChild(div);
-
-                // Get the target index from the div's content
                 const initialIndex = parseInt(clone.textContent.split('#')[1]);
-
-                // Find the div with the target index and insert the clone before it
+                // Find target element by index as divs are stored in arr from 0
                 const targetDiv = divPositions[initialIndex];
 
+                // Inserting cloned element to initial position
                 targetDiv.parentNode.insertBefore(clone, targetDiv);
 
-                // Attach the click event listener to the cloned element
-                clone.onclick = togglePosition;
             } else {
                 // Odd click, create copy and move to top
                 const firstDiv = document.body.firstChild;
-                const clone = div.cloneNode(true); // Create a deep copy
-                clone.setAttribute('data-clicked', `${clicked + 1}`);
+                // Inserting clone before first dit - to the top
                 document.body.insertBefore(clone, firstDiv);
-
-                // Attach the click event listener to the cloned element
-                clone.onclick = togglePosition;
-
-                // Removing copying source element
-                div.parentNode.removeChild(div);
-
-                console.log(divPositions);
             }
-        }
 
+            // Attach the click event listener to the cloned element
+            clone.onclick = togglePosition;
+
+            // Removing copying source element
+            div.parentNode.removeChild(div);
+
+            console.log(divPositions);
+        }
         // Function to colorize the divs with good contrast
         function colorizeDivs() {
             const divs = document.querySelectorAll('div.generated');
