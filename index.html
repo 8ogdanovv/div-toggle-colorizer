@@ -10,9 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@1,700&display=swap" rel="stylesheet">
     <style>
         body {
-          margin: 0;
-          padding: 0;
-          font-family: 'Victor Mono', monospace;
+            margin: 0;
+            padding: 0;
+            font-family: 'Victor Mono', monospace;
         }
         div {
             height: 100px;
@@ -29,6 +29,9 @@
 </head>
 <body>
     <script>
+        // Initialize an array to keep track of div positions
+        const divPositions = [];
+
         // Function to toggle the position of a div
         function togglePosition(event) {
             const div = event.target;
@@ -38,14 +41,16 @@
                 // Even click, move its copy to initial index
                 const clone = div.cloneNode(true); // Create a deep copy
                 clone.setAttribute('data-clicked', `${clicked + 1}`);
-                // Get the target index from the div's content
-                const initialIndex = parseInt(clone.textContent.split('#')[1]);
 
                 // Removing copying source element before appending
                 div.parentNode.removeChild(div);
 
+                // Get the target index from the div's content
+                const initialIndex = parseInt(clone.textContent.split('#')[1]);
+
                 // Find the div with the target index and insert the clone before it
-                const targetDiv = document.querySelector(`div:nth-of-type(${initialIndex + 1})`);
+                const targetDiv = divPositions[initialIndex];
+
                 targetDiv.parentNode.insertBefore(clone, targetDiv);
 
                 // Attach the click event listener to the cloned element
@@ -62,12 +67,14 @@
 
                 // Removing copying source element
                 div.parentNode.removeChild(div);
+
+                console.log(divPositions);
             }
         }
 
         // Function to colorize the divs with good contrast
         function colorizeDivs() {
-            const divs = document.getElementsByTagName('div');
+            const divs = document.querySelectorAll('div.generated');
             const hueStep = 360 / divs.length;
 
             for (let i = 0; i < divs.length; i++) {
@@ -76,6 +83,9 @@
                 const shadowColor = `hsl(${(hue + 180) % 360}, 100%, 50%)`;
                 divs[i].style.backgroundColor = bgColor;
                 divs[i].style.color = `${shadowColor}`;
+
+                // Populate the divPositions array initially
+                divPositions.push(divs[i]);
             }
         }
 
@@ -89,6 +99,7 @@
         // Generate and attach 100 divs to the body
         for (let i = 1; i <= 100; i++) {
             const div = document.createElement('div');
+            div.classList.add('generated');
             div.textContent = `div#${pad(i, 3)}`;
             div.setAttribute('data-clicked', '0'); // Initially set to 0
             document.body.appendChild(div);
