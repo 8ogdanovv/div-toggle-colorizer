@@ -1,20 +1,34 @@
-# [Div Toggle Colorizer](https://vadym4che.github.io/div-toggle-colorizer/)
+# Div Toggle Colorizer
 
-This is a simple HTML and JavaScript project that demonstrates the following features:
+[![Div Toggle Colorizer Screenshot](https://github.com/vadym4che/div-toggle-colorizer/blob/main/screenshot.png)](https://vadym4che.github.io/div-toggle-colorizer/)
 
-- Dynamically generates 100 div elements upon loading an HTML page.
-- Each div contains a unique text, centered both horizontally and vertically.
-- Users can interact with the divs, clicking to toggle their positions between the first position and their original position.
-- Clicking a div once moves it to the top of the page, and clicking it again returns it to its initial position.
-- The divs are colorized to ensure good contrast with varying background colors and text shadow colors.
+Div Toggle Colorizer is a simple web application that demonstrates the dynamic manipulation of HTML div elements. It allows you to toggle the position of divs and colorize them for a visually appealing effect. This project is built using HTML, CSS, and JavaScript and showcases basic DOM manipulation and event handling.
 
-Interesting Aspects:
+## Table of Contents
 
-- The project uses plain JavaScript without relying on any external libraries or frameworks.
-- Users can click on the div elements in any sequence, not necessarily in consecutive order.
-- The code is designed to work seamlessly on mobile browsers and has been tested on popular browsers including Chrome, Firefox, Safari, and Edge.
-- The result is presented as a single HTML file with no external dependencies.
+- [Overview](#overview)
+- [Usage](#usage)
+- [Author](#author)
 
-**Task Description:**
+## Overview
 
-The task involves automatically adding 100 div elements to the body of an HTML page upon loading. Each div is 100 pixels in height and contains unique text, such as "div1," "div2," and so on. The text is centered both horizontally and vertically within each div. When a user clicks on any div element, it toggles its position. On the first click, the div moves to the top of the page, and on the second click, it returns to its original position. Additional requirements include not using any third-party libraries or frameworks, allowing users to click on div elements in any order, ensuring compatibility with mobile browsers, and cross-browser compatibility.
+Div Toggle Colorizer provides the following functionality:
+
+- Toggle the position of div elements with a click.
+- Colorize the divs in a way that ensures good contrast.
+
+You can try out the live demo [here](https://vadym4che.github.io/div-toggle-colorizer/).
+
+The application consists of a series of div elements, and when you click on them, they toggle their positions between the top and their original positions. Additionally, the divs are colorized based on their position, creating a visually appealing effect.
+
+## Usage
+
+1. Open the [live demo](https://vadym4che.github.io/div-toggle-colorizer/).
+2. Click on any of the div elements to toggle their positions.
+3. Observe the color changes when you interact with the divs.
+
+This project is simple and serves as an educational example of basic DOM manipulation and event handling in web development.
+
+## Author
+
+(&ccaron;) Vadym Chervoniak
